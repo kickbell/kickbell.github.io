@@ -8,8 +8,6 @@ tags:
 comments: true
 published: true
 ---
-![image](https://user-images.githubusercontent.com/85085822/161658306-19eb9858-f6a8-4816-a861-bfc4b1c5d4f3.png)
-
 
 ```mermaid  
 graph LR 
