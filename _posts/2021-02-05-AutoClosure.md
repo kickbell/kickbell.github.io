@@ -8,6 +8,7 @@ tags:
 comments: true
 published: true
 ---
+![image](https://user-images.githubusercontent.com/85085822/161658306-19eb9858-f6a8-4816-a861-bfc4b1c5d4f3.png)
 
 ## 정의
 `@autoclosure`는 함수의 인자로 전달되는 코드를 감싸서 자동으로 클로저로 만들어 줍니다. 
