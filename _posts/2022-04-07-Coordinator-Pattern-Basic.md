@@ -1,5 +1,3 @@
-
-
 ---
 layout: post
 title: "Coordinator Pattern - 1. Basic"
