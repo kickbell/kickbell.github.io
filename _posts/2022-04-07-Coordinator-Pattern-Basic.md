@@ -1,6 +1,11 @@
 
 
-# Coordinator Pattern - 1 
+---
+layout: post
+title: "Coordinator Pattern - 1. Basic"
+tags: [sample post, readability, test, intro]
+comments: true
+---
 
 그동안 미뤄두고 미뤄뒀던 Coordinator Pattern에 관해서 공부를 좀 해보려고 합니다. 
 
