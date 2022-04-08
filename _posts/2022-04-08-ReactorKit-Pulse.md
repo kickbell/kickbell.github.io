@@ -31,13 +31,13 @@ Make public valueUpdatedCount on Pulse by @tokijh in #196
 "개발자는 역시 코드지, 코드를 봐볼까?"
 
 ```swift
-var messagePulse: Pulse<String?> = Pulse(wrappedValue: "Hello tokijh")
+  var messagePulse: Pulse<String?> = Pulse(wrappedValue: "Hello tokijh")
 
-let oldMessagePulse: Pulse<String?> = message
-message = "Hello tokijh"
+  let oldMessagePulse: Pulse<String?> = message
+  message = "Hello tokijh"
 
-oldMessagePulse != messagePulse // true
-oldMessagePulse.value == messagePulse.value // true
+  oldMessagePulse != messagePulse // true
+  oldMessagePulse.value == messagePulse.value // true
 ```
 
 음... 뭐지? "[distinctUntilChanged](https://reactivex.io/documentation/operators/distinct.html) 같은 녀석인가?" 싶었죠. 
@@ -52,46 +52,46 @@ oldMessagePulse.value == messagePulse.value // true
 그렇다면 별 수 없이 다음 문서 내용을 보겠습니다.  
 
 ```swift
-// Reactor
-private final class MyReactor: Reactor {
-  struct State {
-    @Pulse var alertMessage: String?
-  }
+  // Reactor
+  private final class MyReactor: Reactor {
+    struct State {
+      @Pulse var alertMessage: String?
+    }
 
-  func mutate(action: Action) -> Observable<Mutation> {
-    switch action {
-    case let .alert(message):
-      return Observable.just(Mutation.setAlertMessage(message))
+    func mutate(action: Action) -> Observable<Mutation> {
+      switch action {
+      case let .alert(message):
+        return Observable.just(Mutation.setAlertMessage(message))
+      }
+    }
+
+    func reduce(state: State, mutation: Mutation) -> State {
+      var newState = state
+
+      switch mutation {
+      case let .setAlertMessage(alertMessage):
+        newState.alertMessage = alertMessage
+      }
+
+      return newState
     }
   }
 
-  func reduce(state: State, mutation: Mutation) -> State {
-    var newState = state
+  // View
+  reactor.pulse(\.$alertMessage)
+    .compactMap { $0 } // filter nil
+    .subscribe(onNext: { [weak self] (message: String) in
+      self?.showAlert(message)
+    })
+    .disposed(by: disposeBag)
 
-    switch mutation {
-    case let .setAlertMessage(alertMessage):
-      newState.alertMessage = alertMessage
-    }
-
-    return newState
-  }
-}
-
-// View
-reactor.pulse(\.$alertMessage)
-  .compactMap { $0 } // filter nil
-  .subscribe(onNext: { [weak self] (message: String) in
-    self?.showAlert(message)
-  })
-  .disposed(by: disposeBag)
-
-// Cases
-reactor.action.onNext(.alert("Hello"))  // showAlert() is called with `Hello`
-reactor.action.onNext(.alert("Hello"))  // showAlert() is called with `Hello`
-reactor.action.onNext(.doSomeAction)    // showAlert() is not called
-reactor.action.onNext(.alert("Hello"))  // showAlert() is called with `Hello`
-reactor.action.onNext(.alert("tokijh")) // showAlert() is called with `tokijh`
-reactor.action.onNext(.doSomeAction)    // showAlert() is not called
+  // Cases
+  reactor.action.onNext(.alert("Hello"))  // showAlert() is called with `Hello`
+  reactor.action.onNext(.alert("Hello"))  // showAlert() is called with `Hello`
+  reactor.action.onNext(.doSomeAction)    // showAlert() is not called
+  reactor.action.onNext(.alert("Hello"))  // showAlert() is called with `Hello`
+  reactor.action.onNext(.alert("tokijh")) // showAlert() is called with `tokijh`
+  reactor.action.onNext(.doSomeAction)    // showAlert() is not called
 ```
 
 
@@ -174,35 +174,35 @@ extension Reactor {
 위 코드를 보면, Reactor에 extension으로 func pulse 라는 메소드를 추가했습니다. 내부 구현을 볼까요 ? 아까도 말했다시피 `distinctUntilChanged`가 나오긴 하네요. 제 짐작이 약간?은 맞은 듯 합니다. 😅  그리고 해당 `distinctUntilChanged` 연산자는 RxSwift에서 지원하는 4가지 중에 keySelector를 매개변수로 받는 녀석입니다. 
 
 ```swift
-    public func distinctUntilChanged<Key: Equatable>(_ keySelector: @escaping (Element) throws -> Key)
-        -> Observable<Element> {
-        self.distinctUntilChanged(keySelector, comparer: { $0 == $1 })
-    }
+  public func distinctUntilChanged<Key: Equatable>(_ keySelector: @escaping (Element) throws -> Key)
+      -> Observable<Element> {
+      self.distinctUntilChanged(keySelector, comparer: { $0 == $1 })
+  }
 ```
 
 보통 사용은 아래와 같이 하죠. 
 
 ```swift
-    struct Human {
-      let name: String
-      let age: Int
-    }
-    
-    let myPublishSubject = PublishSubject<Human>.init()
-    
-    myPublishSubject
-      .distinctUntilChanged(\.name)
-      .debug()
-      .subscribe()
-      .disposed(by: disposeBag)
-    
-    myPublishSubject.onNext(Human(name: "a", age: 1))
-    myPublishSubject.onNext(Human(name: "a", age: 2))
-    myPublishSubject.onNext(Human(name: "c", age: 3))
+  struct Human {
+    let name: String
+    let age: Int
+  }
 
-    //-> subscribed
-    //-> Event next(Human(name: "a", age: 1))
-    //-> Event next(Human(name: "c", age: 3))
+  let myPublishSubject = PublishSubject<Human>.init()
+
+  myPublishSubject
+    .distinctUntilChanged(\.name)
+    .debug()
+    .subscribe()
+    .disposed(by: disposeBag)
+
+  myPublishSubject.onNext(Human(name: "a", age: 1))
+  myPublishSubject.onNext(Human(name: "a", age: 2))
+  myPublishSubject.onNext(Human(name: "c", age: 3))
+
+  //-> subscribed
+  //-> Event next(Human(name: "a", age: 1))
+  //-> Event next(Human(name: "c", age: 3))
 ```
 
 즉, 여기서 정리해보면 ***`Pulse`는 이벤트을 방출하기는 하되, `Pulse` 내부에 선언되어있는 변수 `valueUpdatedCount` 값이 바뀌어야만 이벤트를 방출한다*** 는 겁니다.
@@ -274,13 +274,13 @@ final class PulseTests: XCTestCase {
 결론적으로는 아까 위의 공식문서가 아래와 같이 일부 수정되어야겠죠?
 
 ```swift
-    var messagePulse: Pulse<String?> = Pulse(wrappedValue: "Hello tokijh")
-    
-    let oldMessagePulse: Pulse<String?> = messagePulse
-    messagePulse.value = "Hello tokijh" // add valueUpdatedCount +1
-    
-    oldMessagePulse.valueUpdatedCount != messagePulse.valueUpdatedCount // true
-    oldMessagePulse.value == messagePulse.value // true
+  var messagePulse: Pulse<String?> = Pulse(wrappedValue: "Hello tokijh")
+
+  let oldMessagePulse: Pulse<String?> = messagePulse
+  messagePulse.value = "Hello tokijh" // add valueUpdatedCount +1
+
+  oldMessagePulse.valueUpdatedCount != messagePulse.valueUpdatedCount // true
+  oldMessagePulse.value == messagePulse.value // true
 ```
 
 oldMessagePulse에 messagePulse를 넣고, messagePulse의 value에 새로운 값을 할당합니다. 
