@@ -250,7 +250,7 @@ final class PulseTests: XCTestCase {
   }
 ```
 
-테스트를 보면 친절히 주석이 적혀있어요. 누가봐도 이상한 주석을 보면 `// same count because no new values are assigned.` 라고 되어있죠. 
+테스트를 보면 친절히 주석이 적혀있어요. 주석을 보면 `// same count because no new values are assigned.` 라고 되어있죠. 
 
 ***즉, `state.value = 2` 와 같은 식으로 value 값에 새로운 값을 할당하지 않았기 때문에 `valueUpdatedCount` 값은 증가되지 않았고, 결과적으로 Pulse는 이벤트를 방출하지 않습니다.*** 
 
@@ -262,13 +262,13 @@ final class PulseTests: XCTestCase {
     @Pulse var alertMessage: String?
   }
 
-// View
-reactor.pulse(\.$alertMessage)
-  .compactMap { $0 } // filter nil
-  .subscribe(onNext: { [weak self] (message: String) in
-    self?.showAlert(message)
-  })
-  .disposed(by: disposeBag)
+  // View
+  reactor.pulse(\.$alertMessage)
+    .compactMap { $0 } // filter nil
+    .subscribe(onNext: { [weak self] (message: String) in
+      self?.showAlert(message)
+    })
+    .disposed(by: disposeBag)
 ```
 
 결론적으로는 아까 위의 공식문서가 아래와 같이 일부 수정되어야겠죠?
