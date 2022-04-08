@@ -5,6 +5,7 @@ tags: [sample post, readability, test, intro]
 comments: true
 ---
 
+
 어떻게 공부하다보니 여기까지 와버렸네요. 
 
 그냥 코디네이터 패턴을 적용하고 싶었던 것 뿐인데.. 
