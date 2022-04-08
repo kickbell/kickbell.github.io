@@ -5,8 +5,6 @@ tags: [ReactorKit, Pulse, RxSwift]
 comments: true
 ---
 
-# [ReactorKit] ReactorKit - Pulse 
-
 오늘은 ReactorKit의 Pulse라는 기능에 대해서 알아볼겁니다. 
 
 3.1.0 버전에서 추가되었고, 현재(2022.04.08)기준 제일 최신 버전인 3.2.0 버전에서 일부 수정되었습니다. 
