@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[ReactorKit/KOR] ReactorKit - Pulse"
+title: "[ReactorKit/KR] ReactorKit - Pulse"
 tags: [ReactorKit, Pulse, RxSwift]
 comments: true
 ---
