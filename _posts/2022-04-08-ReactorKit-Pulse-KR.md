@@ -129,11 +129,7 @@ public struct Pulse<Value> {
   }
 
   private mutating func riseValueUpdatedCount() {
-    if self.valueUpdatedCount == UInt.max {
-      self.valueUpdatedCount = UInt.min
-    } else {
-      self.valueUpdatedCount += 1
-    }
+    self.valueUpdatedCount &+= 1
   }
 }
 ```
@@ -145,11 +141,7 @@ value 값이 바뀔때마다 어떤 특정 작업을 해주고 있죠. 그 작�
 
 ```swift
   private mutating func riseValueUpdatedCount() {
-    if self.valueUpdatedCount == UInt.max {
-      self.valueUpdatedCount = UInt.min
-    } else {
-      self.valueUpdatedCount += 1
-    }
+    self.valueUpdatedCount &+= 1
   }
 ```
 
