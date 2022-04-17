@@ -128,11 +128,7 @@ public struct Pulse<Value> {
   }
 
   private mutating func riseValueUpdatedCount() {
-    if self.valueUpdatedCount == UInt.max {
-      self.valueUpdatedCount = UInt.min
-    } else {
-      self.valueUpdatedCount += 1
-    }
+    self.valueUpdatedCount &+= 1
   }
 }
 ```
@@ -143,11 +139,7 @@ Actually, I didn't get it at first, but the important part is `var value` and `d
 
 ```swift
   private mutating func riseValueUpdatedCount() {
-    if self.valueUpdatedCount == UInt.max {
-      self.valueUpdatedCount = UInt.min
-    } else {
-      self.valueUpdatedCount += 1
-    }
+    self.valueUpdatedCount &+= 1
   }
 ```
 
