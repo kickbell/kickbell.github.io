@@ -1,10 +1,3 @@
----
-layout: post
-title: "[Swift] Struct을 [String: Any]로 변환할 때, Encodable의 Extension을 사용 해야 하나요? - 김종찬"
-tags: [Encodable, Decodable, Swift, Mirror]
-comments: true
----
-
 때는 바야흐로 얼마전, `SwiftUI + Firebase` 관련한 사내스터디를 진행하던 중 회원가입한 User의 데이터값을 Firebase로 보내야 하는 상황이었어요.
 
 Firebase에서 요구되는 메소드의 파라미터 타입은 아래와 같은`[String: Any]` 였죠. 
@@ -209,9 +202,9 @@ extension Encodable {
 
 그런데 저기서 Encodable에 Extension을 하는 이유가 바로 아래에 `Object를 Data 타입으로 변환`하기 위해서 `JSONEncoder()` 클래스가 쓰이기 때문이겠죠. 우리는 이 부분을 `JSONEncoder()`을 사용하지 않고, `NSKeyedArchiver()`를 사용하는 대안을 살펴볼 겁니다. 
 
-[`NSKeyedArchiver`](https://developer.apple.com/documentation/foundation/nskeyedarchiver)는 추상 클래스인 [`NSCoder`](https://developer.apple.com/documentation/foundation/nscoder)를 기반으로 한 클래스 입니다. 공식 문서 상으로는 `키값을 가지고 아카이브에 객체로 저장되는 인코더`라고 표현하고 있네요. 
+[NSKeyedArchiver](https://developer.apple.com/documentation/foundation/nskeyedarchiver)는 추상 클래스인 [NSCoder](https://developer.apple.com/documentation/foundation/nscoder)를 기반으로 한 클래스 입니다. 공식 문서 상으로는 `키값을 가지고 아카이브에 객체로 저장되는 인코더`라고 표현하고 있네요. 
 
-비슷한 녀석으로 [`NSArchiver`](https://developer.apple.com/documentation/foundation/nsarchiver)가 있는데 차이점은 키값의 유무 정도인 것 같아요. 이미 Deprecated 되었기 때문에 이제는 사용하지 않습니다. 
+비슷한 녀석으로 [NSArchiver](https://developer.apple.com/documentation/foundation/nsarchiver)가 있는데 차이점은 키값의 유무 정도인 것 같아요. 이미 Deprecated 되었기 때문에 이제는 사용하지 않습니다. 
 
 `NSKeyedArchiver`는 iOS 2.0부터 사용되었고, Swift 3까지는 원활히 사용되다가 Codable이 나온 Swift 4, iOS 8.0 이후로는 잘 사용되고 있지 않습니다. 
 
@@ -244,7 +237,7 @@ print(user.toDictionary())
 
 엄청나게 크게 바뀌는 부분은 없습니다. 단지 `Object를 Data 타입으로 변환`하기 위해서 `JSONEncoder()` 대신에 `NSKeyedArchiver`를 사용했을 뿐이죠. 
 
-아 그리고, 이미 워낙에 자주 쓰여서 아시겠지만 [`JSONSerialization`](https://developer.apple.com/documentation/foundation/jsonserialization)는 Codable로 치면 디코더의 역할을 하는 녀석입니다. iOS 5.0 부터 사용되었고 8.0에 Codable이 나오기 전까지 잘 사용되었죠. 지금도 간간히 사용되고 있구요. 
+아 그리고, 이미 워낙에 자주 쓰여서 아시겠지만 [JSONSerialization](https://developer.apple.com/documentation/foundation/jsonserialization)는 Codable로 치면 디코더의 역할을 하는 녀석입니다. iOS 5.0 부터 사용되었고 8.0에 Codable이 나오기 전까지 잘 사용되었죠. 지금도 간간히 사용되고 있구요. 
 
 
 #### 4. Encodable
@@ -282,10 +275,7 @@ extension Encodable {
 
 
 #### 5. 참고
-https://ios-development.tistory.com/720 https://developer.apple.com/documentation/foundation/archives_and_serialization/encoding_and_decoding_custom_types
-https://developer.apple.com/documentation/swift/mirror
-https://medium.com/@OutOfBedlam/%EC%8A%A4%EC%9C%84%ED%94%84%ED%8A%B8-json-encoder%EC%99%80-encodable-e61e55f9e535
-
-
-
-
+- https://ios-development.tistory.com/720 
+- https://developer.apple.com/documentation/foundation/archives_and_serialization/encoding_and_decoding_custom_types
+- https://developer.apple.com/documentation/swift/mirror
+- https://medium.com/@OutOfBedlam/%EC%8A%A4%EC%9C%84%ED%94%84%ED%8A%B8-json-encoder%EC%99%80-encodable-e61e55f9e535
