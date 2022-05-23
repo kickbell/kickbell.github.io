@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[SwiftUI] @State, @Binding"
+title: "[SwiftUI] @State, @Binding "
 tags: [SwiftUI, Combine]
 comments: true
 ---
