@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[Swift] Struct을 [String: Any]로 변환할 때, Encodable의 Extension을 사용 해야 하나요? - 김종찬"
+title: "[Swift] Struct을 [String: Any]로 변환할 때, Encodable의 Extension을 사용 해야 하나요?"
 tags: [Swift, Encodable, Mirror]
 comments: true
 ---
