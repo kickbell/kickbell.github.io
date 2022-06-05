@@ -5,14 +5,6 @@ tags: [SwiftUI, Combine]
 comments: true
 ---
 
-
-## Summary
-- *`@State` - View 내부에서의 상태(State)값을 저장, 관찰하고 싶을 때 사용한다.*
-- *`@State` 값은 항상 해당 뷰가 소유하고 관리한다는 개념을 명시적으로 나타내기 위해 `private` 접근 레벨을 사용하는 것이 좋다. *
-- *`@Binding`- 상위 View의 상태(State)를 하위 View에서 받아서 표현하고 변경되면 그 값을 상위 View에 전달하는 역할을 한다. *
-- *위를 이유로 `@Binding` 속성은 자신의 값을 보유 또는 수정하지 않는다. 하위 View에서 값을 보유 또는 수정한다면 상위 View의 값과 불일치하는 문제가 발생할 수 있기 때문이다. 즉, 연산프로퍼티 형태로 사용된다. *
-
-
 요즘 틈틈히 SwiftUI를 공부하고 있어서 겸사겸사 잊어버리기 전에 @State와 @Binding에 대해서 좀 정리해둘까 합니다.  
 
 사실 공식문서도 봐보고 이런 저런 글을 봤습니다만, 이봉원 님의 [스윗한 SwiftUI](http://www.yes24.com/Product/Goods/89912849)의 글만큼 간략하고 이해하기 쉽게 설명된 요약이 없는 것 같아요. 
@@ -171,7 +163,13 @@ Toggle을 보면 매개변수로 `Toggle(isOn: Binding<Bool>, label: () -> _)` i
 어떻게, 좀 이해가 되셨으려나 모르겠습니다. 사실 너무 편하게? 되어있어서 그냥 갖다 쓰기만 해도 되긴 하는데요. 그래도 알고 쓰는게 좋기 때문에,,ㅎㅎ 도움이 되셨으면 좋겠습니다.   
 
 
-#     
+    
+## Conclusion
+- `@State` - View 내부에서의 상태(State)값을 저장, 관찰하고 싶을 때 사용한다.
+- `@State` 값은 항상 해당 뷰가 소유하고 관리한다는 개념을 명시적으로 나타내기 위해 `private` 접근 레벨을 사용하는 것이 좋다.
+- `@Binding`- 상위 View의 상태(State)를 하위 View에서 받아서 표현하고 변경되면 그 값을 상위 View에 전달하는 역할을 한다.
+- 위를 이유로 `@Binding` 속성은 자신의 값을 보유 또는 수정하지 않는다. 하위 View에서 값을 보유 또는 수정한다면 상위 View의 값과 불일치하는 문제가 발생할 수 있기 때문이다. 즉, 연산프로퍼티 형태로 사용된다.
+
 ## Reference  
 https://nsios.tistory.com/120         
 https://developer.apple.com/documentation/swiftui/state       
