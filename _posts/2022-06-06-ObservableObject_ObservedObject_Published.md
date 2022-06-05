@@ -1,11 +1,10 @@
-
-
 ---
-layout: post          
+layout: post
 title: "[SwiftUI] ObservableObject, @ObservedObject, @Published - 김종찬"      
-tags: [SwiftUI, ObservableObject, @ObservedObject, @Published]      
-comments: true      
+tags: [SwiftUI, ObservableObject, @ObservedObject, @Published] 
+comments: true
 ---
+
 
 [저번 글](https://io3s.github.io/State-and-Binding/)에서는 @State와 @Binding에 대해서 알아봤는데요.  
 오늘은 ObservableObject, @ObservedObject, @Published에 대해서 알아볼까 합니다. 
