@@ -207,11 +207,11 @@ class ViewModel: ObservableObject {
 - `ObservableObject`에는 `objectWillChange`라는 퍼블리셔를 하나 가지고 있는데, 내가 관찰하고 싶은 클래스 내의 인스턴스가 변경될 때 `objectWillChange.send()` 메소드를 호출해줘도 되지만 Swift에서 `@Published`라는 속성을 지원해주고 있기 때문에 이것을 사용하면 된다.
     
 ## Reference 
-https://developer.apple.com/documentation/combine/observableobject
-https://developer.apple.com/documentation/swiftui/observedobject
-https://eunjin3786.tistory.com/410
-https://developer.apple.com/documentation/swiftui/managing-model-data-in-your-app
-https://nsios.tistory.com/145
+https://developer.apple.com/documentation/combine/observableobject          
+https://developer.apple.com/documentation/swiftui/observedobject            
+https://eunjin3786.tistory.com/410              
+https://developer.apple.com/documentation/swiftui/managing-model-data-in-your-app               
+https://nsios.tistory.com/145               
 
 
 
