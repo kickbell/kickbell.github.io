@@ -12,14 +12,13 @@ comments: true
 일단 여느 때와 같이 공식문서로 시작해볼까요 ? 정의는 아래와 같습니다. 
 ( 아 그리고 공식문서 홈페이지 리뉴얼 됐던데, 너무 보기 예뻐졌습니다. 아주 굳굳 😄. )
 
-> 
-[ObservedObject](https://developer.apple.com/documentation/swiftui/observedobject)
-A property wrapper type that subscribes to an observable object and invalidates a view whenever the observable object changes.
-iOS 13.0+
+> [ObservedObject](https://developer.apple.com/documentation/swiftui/observedobject)            
+A property wrapper type that subscribes to an observable object and invalidates a view whenever the observable object changes.          
+iOS 13.0+           
 
-> [StateObject](https://developer.apple.com/documentation/swiftui/stateobject)
-A property wrapper type that instantiates an observable object. 
-iOS 14.0+
+> [StateObject](https://developer.apple.com/documentation/swiftui/stateobject)              
+A property wrapper type that instantiates an observable object.             
+iOS 14.0+               
 
 일단 ObservedObject부터 보면, iOS 13에 나왔고, 프로퍼티 래퍼 타입이네요. 관찰 가능한 객체를 구독하고 해당 객체가 변경될때마다 View를 invalidates(무효화) 한다고 해요. ObservedObject에 대해서는 [저번 글](https://io3s.github.io/ObservableObject/)에서도 공부를 했으니 혹시 모르신다면 보고 오시는 것을 추천드립니다. 그래서, 저는 사실 저 부분이 처음엔 잘 이해되지 않았어요. View를 invalidates(무효화)한다라... 기존의 저희에게 익숙한 Rx에서는 이벤트를 `방출`한다고 하잖아요? 그럼 그냥 이벤트를 `방출`하면 되는거지 왜 `무효화` 한다는 걸까? 하고 말이죠. 저번 글에서는 그냥저냥 넘어갔었는데, 이번에 공부하면서 확실히 알게 되었습니다. 
 
