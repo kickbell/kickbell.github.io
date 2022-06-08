@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[SwiftUI] @ObservedObject vs @StateObject - 김종찬 "
+title: "[SwiftUI] @ObservedObject vs @StateObject"
 tags: [SwiftUI, ObservedObject, StateObject] 
 comments: true
 ---
