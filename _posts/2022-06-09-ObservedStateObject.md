@@ -180,11 +180,11 @@ struct ContentView_Previews: PreviewProvider {
 
 그리고 여기서 부터 중요합니다.      
 
-6. var body안에서 뷰를 새로 그리는데, 하위 뷰로 CounterView() 가 있다. 그러면 여기서 `뷰가 새로 그려지면서 CounterView()의 CounterViewModel의 count = 0이 할당되면서 뷰가 새로 그려진다.` 라는 것이죠. 
+- var body안에서 뷰를 새로 그리는데, 하위 뷰로 CounterView() 가 있다. 그러면 여기서 `뷰가 새로 그려지면서 CounterView()의 CounterViewModel의 count = 0이 할당되면서 뷰가 새로 그려진다.` 라는 것이죠. 
 
 그러면 CountView의 viewModel이 @StateObject 라면 어떻게 되죠 ? 
 
-6. 똑같이 뷰가 새로 그려집니다. 하지만, @StateObject가 뭐죠? @StateObject는 `관찰가능한 객체를 인스턴스화`합니다. 즉, 뷰가 새로 그려질 때 뷰가 무효화되고 다시 인스턴스화 되지 않습니다. 그래서 기존의 count 값이 유지 되는 것이죠. 이해가 가실까요 ? 여기서의 주요한 점은 CounterView가 RandomNumberView의 하위뷰로 있기 때문에 RandomNumberView가 새로 그려질 때, CounterView도 새로 그려진다는 겁니다.
+- 똑같이 뷰가 새로 그려집니다. 하지만, @StateObject가 뭐죠? @StateObject는 `관찰가능한 객체를 인스턴스화`합니다. 즉, 뷰가 새로 그려질 때 뷰가 무효화되고 다시 인스턴스화 되지 않습니다. 그래서 기존의 count 값이 유지 되는 것이죠. 이해가 가실까요 ? 여기서의 주요한 점은 CounterView가 RandomNumberView의 하위뷰로 있기 때문에 RandomNumberView가 새로 그려질 때, CounterView도 새로 그려진다는 겁니다.
 
 
 그러면, 각각 언제 @ObservedObject, @StateObject를 써야 할까요 ? 이것에 관해서는 애플의 포럼에서 답변한 [오피셜 문서](https://developer.apple.com/forums/thread/650776)가 있습니다. 
