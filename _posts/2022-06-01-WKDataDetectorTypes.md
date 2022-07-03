@@ -1,4 +1,9 @@
-# WKDataDetectorTypes
+---
+layout: post
+title: "[iOS] WKDataDetectorTypes"
+tags: [iOS, WebView] 
+comments: true
+---
 
 - phoneNumber: 010-1234-5678
 - link: www.apple.com
